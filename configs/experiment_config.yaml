@@ -1,0 +1,32 @@
+experiments:
+  - name: "baseline_natural"
+    overrides:
+      prompt:
+        serialization:
+          type: "natural"
+  - name: "baseline_json"
+    overrides:
+      prompt:
+        serialization:
+          type: "json"
+  - name: "baseline_indented"
+    overrides:
+      prompt:
+        serialization:
+          type: "indented"
+  - name: "baseline_triplets"
+    overrides:
+      prompt:
+        serialization:
+          type: "triplets"
+      llm:
+        delay: 10
+condensed_results_keys:
+  - 'question_id'
+  - 'question_type'
+  - 'serialization'
+  - 'score'
+  - 'num_attributes'
+  - 'llm_elapsed_time'
+visualization: 
+  type: 'serialization' # or 'serialization' or 'num_attributes'

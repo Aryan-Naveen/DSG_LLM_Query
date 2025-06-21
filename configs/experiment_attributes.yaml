@@ -1,0 +1,43 @@
+experiments:
+  - name: "0_attributes"
+    overrides:
+      prompt:
+        serialization:
+          type: "json"
+          detail_keys: 
+          - "NA"
+  - name: "1_attributes"
+    overrides:
+      prompt:
+        serialization:
+          type: "json"
+          detail_keys: 
+          - "bounding_box"
+  - name: "2_attributes"
+    overrides:
+      prompt:
+        serialization:
+          type: "json"
+          detail_keys: 
+          - "bounding_box"   
+          - "position"
+  - name: "3_attributes"
+    overrides:
+      prompt:
+        serialization:
+          type: "json"
+          detail_keys: 
+          - "bounding_box"   
+          - "position"
+          - "world_R_object"       
+condensed_results_keys:
+  - 'question_id'
+  - 'question_type'
+  - 'serialization'
+  - 'score'
+  - 'num_attributes'
+  - 'llm_elapsed_time'
+
+visualization: 
+  type: 'num_attributes' # or 'serialization'
+  args: 'json'
