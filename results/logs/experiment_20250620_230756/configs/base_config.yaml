@@ -1,0 +1,65 @@
+# ================================
+# LLM and Prompt Settings
+# ================================
+llm:
+  model_name: "gpt-4o-mini"
+  temperature: 0.2
+  max_tokens: 512
+  mode: "text"  # or "json"
+  delay: 1
+
+prompt:
+  task_path: "data/prompts/task_queries"
+  task: "all" # "count", "room", "spatial", or "all"
+  template_path: "data/prompts/templates/v0.txt"
+  serialization: 
+    type: "json" # or json or triplets or natural or indented
+    verbose: False
+    detail_keys: 
+      - "bounding_box"
+  use_few_shot: False
+  few_shot_examples_path: "data/prompts/few_shot/few_shot_general_examples.json"
+
+# ================================
+# Dataset / Scene Graphs
+# ================================
+dataset:
+  dataset_name: "spark_dsg"
+  scene_dir: "data/scenes/scene_graphs"
+
+# ================================
+# Evaluation Options
+# ================================
+evaluation:
+  eval_type: "llm_judge"  # or "reference_matching"
+  expected_template: "data/prompts/templates/judge.txt"  # expected parsed output format
+  llm:
+    model_name: "gpt-4o-mini"
+    temperature: 0.0
+    max_tokens: 512
+    mode: "text"  
+    delay: 0
+
+# ================================
+# Output & Logging
+# ================================
+output:
+  log_dir: "results/logs/"
+  metrics_dir: "results/metrics/"
+  save_raw_llm_output: true
+  save_parsed_output: true
+  save_eval_summary: true
+
+visualization:
+  plot_precision_recall: true
+  plot_per_room_metrics: true
+  output_dir: "results/plots/"
+
+# ================================
+# Run Control
+# ================================
+run:
+  seed: 42
+  num_workers: 4
+  debug_mode: false
+  dry_run: false  # If true, don’t call the LLM, just simulate

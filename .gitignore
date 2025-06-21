@@ -40,7 +40,7 @@ ENV/
 .ipynb_checkpoints
 
 # Experiment results and data
-results/
+# results/
 data/
 *.csv
 *.json
