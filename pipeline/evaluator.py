@@ -44,7 +44,7 @@ def evaluate_summary(predicted_answers: dict, ground_truth_answers: dict, cfg: d
         row = {
             "question_id": qid.split('_')[1],
             "question_type": qid.split('_')[0],
-            "serialization": serialization_cfg['type'],
+            "serialization": '-'.join(serialization_cfg['type']),
             "num_attributes": len(serialization_cfg['detail_keys']),
             "question": ground_truth_answers[qid]["query"],
             "ground_truth_answer": ground_truth_answers[qid]["answer"],

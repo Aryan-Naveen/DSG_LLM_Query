@@ -4,10 +4,12 @@ import matplotlib.pyplot as plt
 import os
 import argparse
 import yaml
+import numpy as np
 
 
 
-def plot_serialization_results(experiment_dataframe, results_dir):
+
+def plot_serialization_results(experiment_dataframe, results_dir, args):
     # Ensure output directory exists
     os.makedirs(results_dir, exist_ok=True)
 
@@ -55,7 +57,8 @@ def plot_serialization_results(experiment_dataframe, results_dir):
     question_types = experiment_dataframe['question_type'].unique()
     n_types = len(question_types)
     fig, axes = plt.subplots(1, n_types, figsize=(6 * n_types, 6), sharey=True)
-
+    axes = np.atleast_1d(axes)
+    
     for ax, q_type in zip(axes, question_types):
         subset = experiment_dataframe[experiment_dataframe['question_type'] == q_type]
         sns.boxplot(data=subset, x='serialization', y='score', ax=ax)
@@ -99,7 +102,9 @@ def plot_serialization_results(experiment_dataframe, results_dir):
         plt.close()
 
 
-def plot_attribute_analysis_single_serialization(experiment_dataframe, results_dir, serialization_type):
+def plot_attribute_analysis_single_serialization(experiment_dataframe, results_dir, args):
+
+    serialization_type = args
     os.makedirs(results_dir, exist_ok=True)
 
     # Filter for selected serialization type
@@ -166,10 +171,22 @@ def plot_attribute_analysis_single_serialization(experiment_dataframe, results_d
     plt.savefig(f"{results_dir}/4_accuracy_by_attr_and_type_{serialization_type}.png")
     plt.close()
 
+
+def plot_multi_serialization_analysis(experiment_dataframe, results_dir, args):
+    return
+
+
 def parse_args():
     parser = argparse.ArgumentParser(description="Load config file")
     parser.add_argument('--results_path', type=str, default='results/logs/experiment_20250620_230756', help="Results Directory to Update")
     return parser.parse_args()
+
+vizualize_fns = {
+    'serialization': plot_serialization_results,
+    'num_attributes': plot_attribute_analysis_single_serialization,
+    'multi-serialization': plot_multi_serialization_analysis
+}
+
 
 if __name__ == '__main__':
     args = parse_args()

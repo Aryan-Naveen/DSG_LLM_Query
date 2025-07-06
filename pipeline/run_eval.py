@@ -21,8 +21,7 @@ from output_logging import (
 )
 
 from visualize import (
-    plot_serialization_results, 
-    plot_attribute_analysis_single_serialization
+    vizualize_fns
 )
 
 
@@ -41,7 +40,7 @@ def recursive_merge(base, overrides):
 def parse_args():
     parser = argparse.ArgumentParser(description="Load config file")
     parser.add_argument('--base_config', type=str, default='configs/base_eval_config.yaml', help="Path to the config file")
-    parser.add_argument('--experiment_config', type=str, default='configs/experiment_config.yaml', help="Path to the experiment config file")
+    parser.add_argument('--experiment_config', type=str, default='configs/experiment_multi.yaml', help="Path to the experiment config file")
     return parser.parse_args()
 
 def load_config(config_path):
@@ -101,9 +100,6 @@ if __name__ == "__main__":
     results_path = save_experiment_results(base_config['output'], experiments_df, condensed_results_keys)
 
     save_config_to_results([args.experiment_config, args.base_config], results_path)
-    if viz_config['type'] == 'serialization':
-        plot_serialization_results(experiments_df, results_path)
-    else:
-        plot_attribute_analysis_single_serialization(experiments_df, results_path, viz_config['args'])
     
+    vizualize_fns[viz_config['type']](experiments_df, results_path, viz_config['args'])
     

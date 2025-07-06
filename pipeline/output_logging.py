@@ -24,13 +24,9 @@ def save_config_to_results(config_paths, results_dir):
     result_config_path = f"{results_dir}/configs"
     os.makedirs(result_config_path, exist_ok=True)
     
-    dest_filenames = {
-        "base_eval_config.yaml": "base_config.yaml",
-        "experiment_attributes.yaml": "experiment_config.yaml",
-        "experiment_config.yaml": "experiment_config.yaml"
-    }
-
     for config_path in config_paths:
         filename = os.path.basename(config_path)
-        destination = os.path.join(result_config_path, dest_filenames[filename])
+        dest_file = "base_config.yaml" if filename == "base_eval_config.yaml" else "experiment_config.yaml"
+
+        destination = os.path.join(result_config_path, dest_file)
         shutil.copy(config_path, destination)

@@ -1,0 +1,19 @@
+experiments:
+  - name: "baseline_json"
+    overrides:
+      prompt:
+        task: "spatial"
+        serialization:
+          type: 
+            - "json"
+          verbose: True
+condensed_results_keys:
+  - 'question_id'
+  - 'question_type'
+  - 'serialization'
+  - 'score'
+  - 'num_attributes'
+  - 'llm_elapsed_time'
+visualization: 
+  type: 'serialization' # or 'serialization' or 'num_attributes' or multi-serialization
+  args: ""

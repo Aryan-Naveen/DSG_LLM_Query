@@ -3,21 +3,24 @@ experiments:
     overrides:
       prompt:
         serialization:
-          type: "json"
+          type: 
+            - "json"
           detail_keys: 
           - "NA"
   - name: "1_attributes"
     overrides:
       prompt:
         serialization:
-          type: "json"
+          type: 
+            - "json"
           detail_keys: 
           - "bounding_box"
   - name: "2_attributes"
     overrides:
       prompt:
         serialization:
-          type: "json"
+          type: 
+             - "json"
           detail_keys: 
           - "bounding_box"   
           - "position"
@@ -25,7 +28,8 @@ experiments:
     overrides:
       prompt:
         serialization:
-          type: "json"
+          type: 
+            - "json"
           detail_keys: 
           - "bounding_box"   
           - "position"

@@ -20,20 +20,25 @@ def serialize_dataset(
     
     serialization = serialization_cfg['type']
     detail_keys = serialization_cfg['detail_keys']
+    
+    serialize_fn = {s: serialization_functions[s] for s in serialization}
 
-    if serialization not in serialization_functions:
-        raise ValueError(f"Unknown serialization type: {serialization}")
-    
-    serialize_fn = serialization_functions[serialization]
-    
+        
     dsg_serialized = {
-        name: serialize_fn(scene_graph, detail_keys)
+        name: '\n'.join(
+            f'Below is a {serialize_type} summarization of scene graph {name}\n'
+            + serialize_fn[serialize_type](scene_graph, detail_keys)
+            for serialize_type in serialize_fn
+        )
         for name, scene_graph in scene_graphs.items()
     }
+
+    
     
     if serialization_cfg['verbose']:
         for name in dsg_serialized:
             print(dsg_serialized[name])
+            
     return dsg_serialized
 
 def build_prompt(scene_repr: str, query: str, prompt_cfg: dict) -> str:
